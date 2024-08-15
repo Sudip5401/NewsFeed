@@ -5,7 +5,7 @@ import com.example.newsfeed.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiInterface {
+interface ApiService {
 
     @GET("v1/news")
     suspend fun getAllNews(
