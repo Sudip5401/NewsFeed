@@ -38,11 +38,11 @@ object AppModule {
     @Singleton
     fun provideOkHttpClient(application: Application): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BASIC
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val cacheDir = File(application.cacheDir, UUID.randomUUID().toString())
 
-        val cache = Cache(cacheDir, 5 * 1024 * 1024)
+        val cache = Cache(cacheDir, 2 * 1024 * 1024)
 
         return OkHttpClient.Builder()
             .cache(cache)

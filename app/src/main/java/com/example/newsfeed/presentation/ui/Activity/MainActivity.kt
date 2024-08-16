@@ -1,4 +1,4 @@
-package com.example.newsfeed.presentation.ui
+package com.example.newsfeed.presentation.ui.Activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -1,13 +1,11 @@
 package com.example.newsfeed.data.dataSource.dto
 
-import com.google.gson.Gson
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Feed(
-    @SerializedName("data") val data: List<Data>,
-    @SerializedName("pagination") val pagination: Pagination
-) {
-    override fun toString(): String {
-        return "Api Response : ${Gson().toJson(this)}"
-    }
-}
+    @SerializedName("data") val data: List<Data>? = null,
+    @SerializedName("pagination") val pagination: Pagination? = null
+) : Parcelable
