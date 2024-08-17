@@ -9,9 +9,11 @@ import com.example.newsfeed.presentation.NewsFeedState
 import com.example.newsfeed.presentation.viewModel.NewsFeedsViewModel
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -42,39 +44,43 @@ class NewsFeedsUnitTest {
 
     private lateinit var newsFeedsViewModel: NewsFeedsViewModel
 
-    private lateinit var testDispatchers: TestDispatchers
-
     @Before
     fun setup() {
         openMocks(this)
-        testDispatchers = TestDispatchers()
         newsFeedsViewModel = NewsFeedsViewModel(useCase)
     }
 
     @Test
-    fun `check fetch all news is empty`(): Unit = runBlocking {
-        /* When */
+    fun `check for fetch all news are empty`(): Unit = runTest {
+        /* Given */
         `when`(useCase.invoke(anyInt())).then {
             return@then getMockedList()
         }
 
-        /* Then */
+        /* When */
         useCase.invoke(0)
+
+        /*Then*/
         newsFeedsViewModel._newsFeeds.test {
+            advanceTimeBy(1000)
             assertEquals(NewsFeedState(feeds = null), awaitItem())
         }
     }
 
-    private fun getMockedList(): Flow<NewsFeedState> = flowOf(
-        NewsFeedState(
-            feeds = feedObject
+    private fun getMockedList(): Flow<NewsFeedState> = flow {
+        delay(1000)
+        emit(
+            NewsFeedState(
+                feeds = feedObject
+            )
         )
-    )
-
+    }
 
     @After
     fun tearDown() {
         Mockito.reset(newsRepository)
+        Mockito.reset(useCase)
+        Mockito.reset(feedObject)
     }
 }
 
