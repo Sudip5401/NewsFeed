@@ -1,6 +1,15 @@
 # NewsFeed
 
-A Simple Android Mobile Application which has been implemented using MVVM Clean Architecture.
+A Simple Android Mobile Application which has been implemented using MVVM Clean Architecture to achieve
+a clear separation of concerns within the app.
+
+• performance
+• readability
+• maintainability
+• testability
+• scalability
+• simplicity
+
 Here are the technology stacks are being used mentioned below
 
 ## Tech Stack
@@ -12,9 +21,9 @@ Here are the technology stacks are being used mentioned below
 - Dagger Hilt
 - Retrofit2
 - Navigation Architecture Component
-- Unit tests
+- Unit and UI tests
 
 ## API Key 
 
-Here is the Api key added at Constant file, which are being used to fetch the details. If API key expires then
+Note: Here is the Api key added at Constant file, which are being used to fetch the details. If API key expires then
 generate a newer one for accessing the API further.
