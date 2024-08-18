@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">NewsFeed</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="news_list_label">News</string>
+    <string name="news_details_label">Details</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <!-- Exception related String set -->
+    <string name="something_went_wrong">Something went wrong.Please try again.</string>
+    <string name="error_unknown">Unknown error</string>
+    <string name="error_unable_to_reach_server">"Couldn\'t reach server. Check your internet connection."</string>
+</resources>
