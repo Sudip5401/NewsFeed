@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsfeed.R
+import com.example.newsfeed.core.State
 import com.example.newsfeed.databinding.NewsFeedsFragmentBinding
 import com.example.newsfeed.presentation.ui.common.NewsFeedAdapter
 import com.example.newsfeed.presentation.viewModel.NewsFeedsViewModel
@@ -37,12 +39,11 @@ class NewsFeedsFragment : Fragment() {
             )
         }
     }
-    private var offsetValue = 0
+
     private var valueRepeat = 3
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         newsFeedsViewModel = ViewModelProvider(this)[NewsFeedsViewModel::class.java]
         binding = NewsFeedsFragmentBinding.inflate(inflater, container, false).apply {
@@ -58,31 +59,42 @@ class NewsFeedsFragment : Fragment() {
 
     private fun initView() {
         initiateAdapter()
-        newsFeedsViewModel._newsFeeds.value.feeds?.data?.isEmpty() ?: newsFeedsViewModel.fetchFeeds(
-            offsetValue
-        )
         observerApi()
     }
 
     private fun observerApi() {
         CoroutineScope(Dispatchers.Main).launch {
             repeat(valueRepeat) {
-                newsFeedsViewModel._newsFeeds.collect { value ->
-                    when {
-                        value.isLoading -> binding.progressCircular.visibility = View.VISIBLE
-                        value.feeds?.data?.isEmpty()?.not() == true -> {
+                newsFeedsViewModel.newsFeeds.collect {
+                    when (it) {
+                        is State.Loading -> binding.progressCircular.visibility = View.VISIBLE
+
+                        is State.Success -> {
                             valueRepeat = 0
                             binding.progressCircular.visibility = View.GONE
-                            newsFeedAdapter.setData(
-                                value.feeds.data.toMutableList()
+                            it.data?.let { feed ->
+                                feed.data?.toMutableList()?.let { currentListItems ->
+                                    newsFeedAdapter.setData(
+                                        currentListItems
+                                    )
+                                }
+                            } ?: Toast.makeText(
+                                context,
+                                getString(R.string.something_went_wrong),
+                                Toast.LENGTH_SHORT
                             )
+                                .show()
                         }
 
-                        value.error.isNotBlank() -> {
+                        is State.Error -> {
                             valueRepeat = 0
                             binding.progressCircular.visibility = View.GONE
-                            offsetValue = 0
-                            Toast.makeText(requireContext(), value.error, Toast.LENGTH_LONG).show()
+                            newsFeedsViewModel.offsetValue = 0
+                            Toast.makeText(
+                                requireContext(),
+                                it.message?.asString(requireContext()),
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
                 }
@@ -100,8 +112,8 @@ class NewsFeedsFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
-                    offsetValue += 20
-                    newsFeedsViewModel.fetchFeeds(offsetValue)
+                    newsFeedsViewModel.offsetValue += 20
+                    newsFeedsViewModel.fetchFeeds(newsFeedsViewModel.offsetValue)
                     observerApi()
                 }
             }
