@@ -44,6 +44,7 @@ class NewsFeedAdapter(
         fun bind(data: Data) {
             binding.apply {
                 titleTv.text = data.title
+                descTv.text = data.description
                 context?.let {
                     Glide.with(it)
                         .load(data.image)
