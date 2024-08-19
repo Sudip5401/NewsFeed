@@ -3,8 +3,6 @@
     <!-- Strings used for fragments for navigation -->
     <string name="news_list_label">News</string>
     <string name="news_details_label">Details</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
     <!-- Exception related String set -->
     <string name="something_went_wrong">Something went wrong.Please try again.</string>
