@@ -1,4 +1,4 @@
-package com.example.newsfeed.presentation.ui.Fragments
+package com.example.newsfeed.presentation.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle

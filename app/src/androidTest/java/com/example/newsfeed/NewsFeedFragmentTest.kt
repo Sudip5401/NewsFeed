@@ -10,7 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.newsfeed.presentation.ui.Activity.MainActivity
+import com.example.newsfeed.presentation.ui.activity.MainActivity
 import com.example.newsfeed.presentation.ui.common.NewsFeedAdapter
 import org.junit.Before
 import org.junit.Rule

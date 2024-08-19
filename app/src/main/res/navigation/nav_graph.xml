@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/NewsFeedsFragment"
-        android:name="com.example.newsfeed.presentation.ui.Fragments.NewsFeedsFragment"
+        android:name="com.example.newsfeed.presentation.ui.fragments.NewsFeedsFragment"
         android:label="@string/news_list_label"
         tools:layout="@layout/news_feeds_fragment">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/FeedDetailsFragment"
-        android:name="com.example.newsfeed.presentation.ui.Fragments.FeedDetailsFragment"
+        android:name="com.example.newsfeed.presentation.ui.fragments.FeedDetailsFragment"
         android:label="@string/news_details_label"
         tools:layout="@layout/feed_details_fragment">
 
