@@ -60,6 +60,7 @@ class NewsFeedsFragment : Fragment() {
     private fun initView() {
         initiateAdapter()
         observerApi()
+        binding.progressCircular.setOnClickListener { }
     }
 
     private fun observerApi() {
