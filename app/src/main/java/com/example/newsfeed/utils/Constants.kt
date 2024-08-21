@@ -3,6 +3,6 @@ package com.example.newsfeed.utils
 class Constants {
     companion object {
         const val BASE_URL = "https://api.mediastack.com/"
-        const val ACCESS_KEY = "bdd0512fcaf6583312dca2c453a35405"
+        const val ACCESS_KEY = "a53f17c397b08d5167c010b519f889ca"
     }
 }
